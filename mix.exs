@@ -100,19 +100,6 @@ defmodule Cloud.MixProject do
 
   @tailwindcss_freebsd_x64 "https://people.freebsd.org/~dch/pub/tailwind/v$version/tailwindcss-$target"
 
-  ...
-  defp aliases do
-    [
-      ...
-      "assets.setup": ["tailwind.install --if-missing", "esbuild.install --if-missing"],
-+      "assets.setup.freebsd": [
-+        "tailwind.install #{@tailwindcss_freebsd_x64}",
-+        "esbuild.install --if-missing"
-+      ],
-      ...
-    ]
-  end
-
   # Aliases are shortcuts or tasks specific to the current project.
   # For example, to install project dependencies and perform other setup tasks, run:
   #
