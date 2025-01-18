@@ -10,8 +10,20 @@ defmodule Cloud.MixProject do
       start_permanent: Mix.env() == :prod,
       consolidate_protocols: Mix.env() != :dev,
       aliases: aliases(),
-      releases: [cloud: []],
-      deps: deps()
+      deps: deps(),
+      releases: [
+        cloud: [
+          applications: [runtime_tools: :permanent],
+          include_executables_for: [:unix],
+          build_host_ssh: System.get_env("BUILD_HOST_SSH"),
+          deploy_hosts_ssh: System.get_env("DEPLOY_HOSTS_SSH"),
+          steps: [
+            &Horizon.Ops.BSD.Step.setup/1,
+            :assemble,
+            :tar
+          ],
+        ]
+      ]
     ]
   end
 
@@ -86,6 +98,21 @@ defmodule Cloud.MixProject do
     ]
   end
 
+  @tailwindcss_freebsd_x64 "https://people.freebsd.org/~dch/pub/tailwind/v$version/tailwindcss-$target"
+
+  ...
+  defp aliases do
+    [
+      ...
+      "assets.setup": ["tailwind.install --if-missing", "esbuild.install --if-missing"],
++      "assets.setup.freebsd": [
++        "tailwind.install #{@tailwindcss_freebsd_x64}",
++        "esbuild.install --if-missing"
++      ],
+      ...
+    ]
+  end
+
   # Aliases are shortcuts or tasks specific to the current project.
   # For example, to install project dependencies and perform other setup tasks, run:
   #
@@ -98,7 +125,14 @@ defmodule Cloud.MixProject do
       "ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
       "ecto.reset": ["ecto.drop", "ecto.setup"],
       test: ["ecto.create --quiet", "ecto.migrate --quiet", "test"],
+
       "assets.setup": ["tailwind.install --if-missing", "esbuild.install --if-missing"],
+
+      "assets.setup.freebsd": [
+        "tailwind.install #{@tailwindcss_freebsd_x64}",
+        "esbuild.install --if-missing"
+       ],
+
       "assets.build": ["tailwind cloud", "esbuild cloud"],
       "assets.deploy": [
         "tailwind cloud --minify",
