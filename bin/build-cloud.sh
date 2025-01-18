@@ -16,7 +16,7 @@ set -e
 
 export SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 
-BUILD_HOST_SSH="${BUILD_HOST_SSH:-}"
+BUILD_HOST_SSH="${BUILD_HOST_SSH:-build.devekko.dev}"
 BUILD_SCRIPT="${SCRIPT_DIR}/build_script-cloud.sh"
 
 ssh ${BUILD_HOST_SSH} 'export PATH=$(cat .path):$PATH; (cd /usr/local/opt/cloud/build; MIX_ENV=prod ./bin/build_script-cloud.sh)'
