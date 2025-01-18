@@ -10,6 +10,7 @@ defmodule Cloud.MixProject do
       start_permanent: Mix.env() == :prod,
       consolidate_protocols: Mix.env() != :dev,
       aliases: aliases(),
+      releases: [cloud: []],
       deps: deps()
     ]
   end
@@ -73,6 +74,7 @@ defmodule Cloud.MixProject do
        app: false,
        compile: false,
        depth: 1},
+      {:horizon, "~> 0.2", runtime: false},
       {:swoosh, "~> 1.5"},
       {:finch, "~> 0.13"},
       {:telemetry_metrics, "~> 1.0"},
