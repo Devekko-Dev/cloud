@@ -55,6 +55,9 @@ while IFS= read -r line; do
   postgres\.init)
     ARGS="$ARGS --postgres-init"
     ;;
+  postgres\.wtf)
+    ARGS="$ARGS --postgres-db-c_mixed_utf8 my_db"
+    ;;
   postgres\.db:*)
     DB_INFO="${line#postgres.db:}"
     ENCODING_TYPE="${DB_INFO%%:*}"
@@ -62,6 +65,9 @@ while IFS= read -r line; do
 
     # Extract encoding options if provided
     case "$ENCODING_TYPE" in
+    c_mixed_utf8)
+      ARGS="$ARGS --postgres-db-c_mixed_utf8 $DB_NAME"
+      ;;
     c_mixed_utf8)
       ARGS="$ARGS --postgres-db-c_mixed_utf8 $DB_NAME"
       ;;

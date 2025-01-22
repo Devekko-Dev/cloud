@@ -38,3 +38,5 @@ npm-debug.log
 # add .div.env
 .stage.env
 .prod.env
+.dev.env
+.env
