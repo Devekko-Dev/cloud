@@ -37,7 +37,7 @@
 APP_NAME="cloud"
 SRC_REPO_DIR=$(cd . && pwd)
 BUILD_PATH=/usr/local/opt/cloud/build
-BUILD_HOST_SSH="${BUILD_HOST_SSH:-build.devekko.dev}"
+BUILD_HOST_SSH="${BUILD_HOST_SSH:-build}"
 
 # Default staging method
 STAGING_METHOD="auto" # Options: auto, rsync, tar

@@ -17,7 +17,7 @@
 set -eu
 
 # Default deployment user and host
-DEPLOY_HOSTS_SSH="deploy.devekko.dev"
+DEPLOY_HOSTS_SSH="cloud,cloud2"
 APP_PATH="/usr/local/cloud"
 APP="cloud"
 

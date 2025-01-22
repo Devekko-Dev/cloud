@@ -42,8 +42,12 @@ while IFS= read -r line; do
     ARGS="$ARGS --pkg $APP"
     ;;
   service:*)
-    SERVICE="${line#service:}"
+    SERVICE="${line#service:}"ELIXIR
     ARGS="$ARGS --service $SERVICE"
+    ;;
+  elixirist)
+    ELIXIR_VERSION="1.17.3"
+    ARGS="$ARGS --elixir $ELIXIR_VERSION"
     ;;
   elixir:*)
     ELIXIR_VERSION="${line#elixir:}"
